@@ -13,6 +13,7 @@ app.get("/",(req,res)=>{
 })
 
 app.listen(port,()=>{
-    console.log(`auth started at ${port}`)
     connectDb()
+    console.log(`auth started at ${port}`)
+    console.log("sumo gandu")
 })
