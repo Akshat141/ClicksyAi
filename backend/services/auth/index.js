@@ -1,19 +1,28 @@
-import express from "express"
-import dotenv from "dotenv"
-import connectDb from "./config/db.js"
+import express from "express";
+import dotenv from "dotenv";
+import connectDb from "./config/db.js";
 
-dotenv.config()
+dotenv.config();
 
-const port = process.env.PORT
+const port = process.env.PORT;
 
-const app = express()
+const app = express();
 
 app.get("/",(req,res)=>{
-    res.json({message:"hello from auth"})
+    res.json({message:"hello from auth"});
 })
 
-app.listen(port,()=>{
-    connectDb()
-    console.log(`auth started at ${port}`)
-    console.log("sumo gandu")
-})
+const startServer = async()=>{
+    try{
+        await connectDb();
+
+        app.listen(port,()=>{
+            console.log(`Auth server started at ${port}`);
+        })
+    }catch(error){
+        console.log(`Failed to start the auth server ${error.message}`);
+        process.exit(1);
+    }
+}
+
+startServer();
